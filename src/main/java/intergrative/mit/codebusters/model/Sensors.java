@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Document(collection = "sensors")
 public class Sensors {
     @Transient
-    public static final String SEQUENCE_NAME = "users_sequence";
+    public static final String SEQUENCE_NAME = "input_sequence";
     @Id
     private long id;
 
