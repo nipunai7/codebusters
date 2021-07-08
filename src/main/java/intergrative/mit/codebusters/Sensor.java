@@ -2,23 +2,38 @@ package intergrative.mit.codebusters;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class Sensor {
 
     @Id
     public String id;
     public String name;
-    public String addDate;
-    public String lastUpdate;
+    public Date addDate;
+    public Date lastUpdate;
+    public List temps = new ArrayList();
 
     public Sensor(){
 
     }
 
-    public Sensor(String id, String name, String addDate, String lastUpdate) {
+    public Sensor(String id, String name, Date addDate, Date lastUpdate, List temps) {
         this.id = id;
         this.name = name;
         this.addDate = addDate;
         this.lastUpdate = lastUpdate;
+        this.temps = temps;
+
+    }
+
+    public List getTemps() {
+        return temps;
+    }
+
+    public void setTemps(double d) {
+        this.temps.add(d);
     }
 
     public String getId() {
@@ -37,19 +52,19 @@ public class Sensor {
         this.name = name;
     }
 
-    public String getAddDate() {
+    public Date getAddDate() {
         return addDate;
     }
 
-    public void setAddDate(String addDate) {
+    public void setAddDate(Date addDate) {
         this.addDate = addDate;
     }
 
-    public String getLastUpdate() {
+    public Date getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(String lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -60,6 +75,7 @@ public class Sensor {
                 ", name='" + name + '\'' +
                 ", addDate='" + addDate + '\'' +
                 ", lastUpdate='" + lastUpdate + '\'' +
+                ", temps='" + temps + '\'' +
                 '}';
     }
 }

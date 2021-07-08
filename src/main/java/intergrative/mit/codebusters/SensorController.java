@@ -1,8 +1,12 @@
 package intergrative.mit.codebusters;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.DateOperators;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,13 +15,23 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class SensorController {
 
+//    Calendar c = Calendar.getInstance();
+//    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Autowired
     private SensorRepo sensorRepo;
 
     @PostMapping("/addSensor")
     public String saveSensor(@RequestBody Sensor sensor){
-        sensorRepo.save(sensor);
-        return "Sensor Added: "+sensor.getId();
+        if (sensor.temps.isEmpty()){
+            sensor.temps.add(0);
+        }
+        try {
+            sensorRepo.save(sensor);
+            return "Sensor Added: " + sensor.getId();
+        }catch (Exception e){
+            return e.toString();
+        }
     }
 
     @GetMapping("/listsensors")
@@ -34,6 +48,22 @@ public class SensorController {
     public String deleteSensor(@PathVariable String id){
         sensorRepo.deleteById(id);
         return "Sensor Deleted: "+id;
+    }
+
+    @PatchMapping("/update/{id}/{temp}")
+    public String updateSen(@PathVariable String id,@PathVariable double temp,@RequestBody Sensor sensor){
+        Optional<Sensor> sensorData = sensorRepo.findById(id);
+
+         if( sensorData.isPresent()){
+             Sensor _sensor = sensorData.get();
+             _sensor.setTemps(temp);
+             _sensor.setLastUpdate(sensor.getLastUpdate());
+             sensorRepo.save(_sensor);
+             return "Data added";
+         }else{
+             return "No sensor detected";
+         }
+
     }
 
 
