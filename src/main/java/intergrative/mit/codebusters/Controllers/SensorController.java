@@ -1,5 +1,7 @@
-package intergrative.mit.codebusters;
+package intergrative.mit.codebusters.Controllers;
 
+import intergrative.mit.codebusters.Models.Sensor;
+import intergrative.mit.codebusters.SensorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +59,21 @@ public class SensorController {
              return "No sensor detected";
          }
 
+    }
+
+    @PatchMapping("/update/thresholds/{id}")
+    public String updateSen2(@PathVariable String id,@RequestBody Sensor sensor){
+        Optional<Sensor> sensorData = sensorRepo.findById(id);
+
+        try {
+            Sensor _sensor = sensorData.get();
+            _sensor.setThreshold1(sensor.getThreshold1());
+            _sensor.setThreshold2(sensor.getThreshold2());
+            sensorRepo.save(_sensor);
+            return "Thresholds Updated";
+        }catch (Exception e){
+            return  e.toString();
+        }
     }
 
 

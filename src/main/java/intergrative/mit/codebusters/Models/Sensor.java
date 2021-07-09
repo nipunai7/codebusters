@@ -1,4 +1,4 @@
-package intergrative.mit.codebusters;
+package intergrative.mit.codebusters.Models;
 
 import org.springframework.data.annotation.Id;
 
@@ -14,18 +14,21 @@ public class Sensor {
     public Date addDate;
     public Date lastUpdate;
     public List temps = new ArrayList();
+    public int userID;
+    public double threshold1;
+    public double threshold2;
 
-    public Sensor(){
-
+    public Sensor() {
     }
 
-    public Sensor(String id, String name, Date addDate, Date lastUpdate, List temps) {
-        this.id = id;
+    public Sensor(String name, Date addDate, Date lastUpdate, List temps, int userID, double threshold1, double threshold2) {
         this.name = name;
         this.addDate = addDate;
         this.lastUpdate = lastUpdate;
         this.temps = temps;
-
+        this.userID = userID;
+        this.threshold1 = threshold1;
+        this.threshold2 = threshold2;
     }
 
     public List getTemps() {
@@ -68,6 +71,18 @@ public class Sensor {
         this.lastUpdate = lastUpdate;
     }
 
+    public int getUserID() { return userID; }
+
+    public void setUserID(int userID) {this.userID = userID; }
+
+    public double getThreshold1() { return threshold1; }
+
+    public void setThreshold1(double threshold1) {this.threshold1 = threshold1;}
+
+    public double getThreshold2() {return threshold2;}
+
+    public void setThreshold2(double threshold2) {this.threshold2 = threshold2;}
+
     @Override
     public String toString() {
         return "Sensor{" +
@@ -76,6 +91,9 @@ public class Sensor {
                 ", addDate='" + addDate + '\'' +
                 ", lastUpdate='" + lastUpdate + '\'' +
                 ", temps='" + temps + '\'' +
+                ", UserId='" + userID + '\'' +
+                ", threshold1='" + threshold1 + '\'' +
+                ", threshold2='" + threshold2 + '\'' +
                 '}';
     }
 }
