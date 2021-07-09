@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class SensorController {
 
-    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+    String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
 
     @Autowired
@@ -57,7 +57,7 @@ public class SensorController {
     @PatchMapping("/update/{id}/{temp}")
     public String updateSen(@PathVariable String id,@PathVariable double temp,@RequestBody Sensor sensor){
         Optional<Sensor> sensorData = sensorRepo.findById(id);
-        timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
          if( sensorData.isPresent()){
              Sensor _sensor = sensorData.get();
@@ -71,10 +71,10 @@ public class SensorController {
 
     }
 
-    @PatchMapping("/update/thresholds/{id}")
+    @PatchMapping("/update/all/{id}")
     public String updateSen2(@PathVariable String id,@RequestBody Sensor sensor){
         Optional<Sensor> sensorData = sensorRepo.findById(id);
-        timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
         try {
             Sensor _sensor = sensorData.get();
