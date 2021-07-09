@@ -2,16 +2,45 @@ package intergrative.mit.codebusters.Models;
 
 import org.springframework.data.annotation.Id;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    public int getUserId() {
-        return UserId;
+
+    @Id
+    public String id;
+    public String uName;
+    public String jdate;
+    public String email;
+    public String password;
+    public List sensors = new ArrayList();
+
+    public User(){
+
     }
 
-    public void setUserId(int userId) {
-        UserId = userId;
+    public User( String uName, String jdate, List sensors, String email, String password) {
+        this.uName = uName;
+        this.jdate = jdate;
+        this.sensors = sensors;
+        this.email = email;
+        this.password = password;
+    }
+
+    public List getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(String sensorID,String timeStamp) { this.sensors.add(new String[]{sensorID,timeStamp}); }
+
+
+    public String getUserId() {
+        return id;
+    }
+
+    public void setUserId(String id) {
+        this.id = id;
     }
 
     public String getuName() {
@@ -30,14 +59,6 @@ public class User {
         this.jdate = jdate;
     }
 
-    public List getSensors() {
-        return sensors;
-    }
-
-    public void setSensors(List sensors) {
-        this.sensors = sensors;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -54,19 +75,15 @@ public class User {
         this.password = password;
     }
 
-    public User(String uName, String jdate, List sensors, String email, String password) {
-        this.uName = uName;
-        this.jdate = jdate;
-        this.sensors = sensors;
-        this.email = email;
-        this.password = password;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", uName='" + uName + '\'' +
+                ", jdate='" + jdate + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", sensors=" + sensors +
+                '}';
     }
-
-    @Id
-    public int UserId;
-    public String uName;
-    public String jdate;
-    public List sensors = new ArrayList();
-    public String email;
-    public String password;
 }
