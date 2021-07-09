@@ -5,6 +5,7 @@ import intergrative.mit.codebusters.SensorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class SensorController {
+
+    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
 
     @Autowired
     private SensorRepo sensorRepo;
@@ -21,6 +25,9 @@ public class SensorController {
         if (sensor.temps.isEmpty()){
             sensor.temps.add(0);
         }
+        sensor.setAddDate(timestamp);
+        sensor.setLastUpdate(timestamp);
+        System.out.println(timestamp);
         try {
             sensorRepo.save(sensor);
             return "Sensor Added: " + sensor.getId();
@@ -51,8 +58,8 @@ public class SensorController {
 
          if( sensorData.isPresent()){
              Sensor _sensor = sensorData.get();
-             _sensor.setTemps(temp);
-             _sensor.setLastUpdate(sensor.getLastUpdate());
+             _sensor.setTemps(temp,timestamp);
+             _sensor.setLastUpdate(timestamp);
              sensorRepo.save(_sensor);
              return "Data added";
          }else{
