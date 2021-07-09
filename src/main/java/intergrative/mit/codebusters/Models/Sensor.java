@@ -11,8 +11,8 @@ public class Sensor {
     @Id
     public String id;
     public String name;
-    public Date addDate;
-    public Date lastUpdate;
+    public String addDate;
+    public String lastUpdate;
     public List temps = new ArrayList();
     public int userID;
     public double threshold1;
@@ -21,7 +21,7 @@ public class Sensor {
     public Sensor() {
     }
 
-    public Sensor(String name, Date addDate, Date lastUpdate, List temps, int userID, double threshold1, double threshold2) {
+    public Sensor(String name, String addDate, String lastUpdate, List temps, int userID, double threshold1, double threshold2) {
         this.name = name;
         this.addDate = addDate;
         this.lastUpdate = lastUpdate;
@@ -35,8 +35,8 @@ public class Sensor {
         return temps;
     }
 
-    public void setTemps(double d,Date stamp) {
-        this.temps.add(new String[]{String.valueOf(d), String.valueOf(stamp)});
+    public void setTemps(double d,String stamp) {
+        this.temps.add(new String[]{String.valueOf(d), stamp});
     }
 
     public String getId() {
@@ -55,19 +55,19 @@ public class Sensor {
         this.name = name;
     }
 
-    public Date getAddDate() {
+    public String getAddDate() {
         return addDate;
     }
 
-    public void setAddDate(Date addDate) {
+    public void setAddDate(String addDate) {
         this.addDate = addDate;
     }
 
-    public Date getLastUpdate() {
+    public String getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

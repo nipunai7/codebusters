@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class SensorController {
 
-    private Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+    String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 
 
     @Autowired
@@ -23,11 +25,11 @@ public class SensorController {
     @PostMapping("/addSensor")
     public String saveSensor(@RequestBody Sensor sensor){
         if (sensor.temps.isEmpty()){
-            sensor.temps.add(0);
+            sensor.setTemps(0,timeStamp);
         }
-        sensor.setAddDate(timestamp);
-        sensor.setLastUpdate(timestamp);
-        System.out.println(timestamp);
+        sensor.setAddDate(timeStamp);
+        sensor.setLastUpdate(timeStamp);
+        System.out.println(timeStamp);
         try {
             sensorRepo.save(sensor);
             return "Sensor Added: " + sensor.getId();
@@ -55,11 +57,12 @@ public class SensorController {
     @PatchMapping("/update/{id}/{temp}")
     public String updateSen(@PathVariable String id,@PathVariable double temp,@RequestBody Sensor sensor){
         Optional<Sensor> sensorData = sensorRepo.findById(id);
+        timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 
          if( sensorData.isPresent()){
              Sensor _sensor = sensorData.get();
-             _sensor.setTemps(temp,timestamp);
-             _sensor.setLastUpdate(timestamp);
+             _sensor.setTemps(temp,timeStamp);
+             _sensor.setLastUpdate(timeStamp);
              sensorRepo.save(_sensor);
              return "Data added";
          }else{
@@ -71,9 +74,11 @@ public class SensorController {
     @PatchMapping("/update/thresholds/{id}")
     public String updateSen2(@PathVariable String id,@RequestBody Sensor sensor){
         Optional<Sensor> sensorData = sensorRepo.findById(id);
+        timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 
         try {
             Sensor _sensor = sensorData.get();
+            _sensor.setName(sensor.getName());
             _sensor.setThreshold1(sensor.getThreshold1());
             _sensor.setThreshold2(sensor.getThreshold2());
             sensorRepo.save(_sensor);
