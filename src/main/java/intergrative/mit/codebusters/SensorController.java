@@ -1,12 +1,8 @@
 package intergrative.mit.codebusters;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.DateOperators;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +10,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class SensorController {
-
-//    Calendar c = Calendar.getInstance();
-//    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private SensorRepo sensorRepo;
