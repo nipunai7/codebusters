@@ -1,12 +1,12 @@
 package intergrative.mit.codebusters.Controllers;
 
-import intergrative.mit.codebusters.Models.LightSensor;
-import intergrative.mit.codebusters.Models.Sensor;
-import intergrative.mit.codebusters.Models.TempSensor;
-import intergrative.mit.codebusters.Models.User;
+import intergrative.mit.codebusters.EmailsentRepo;
+import intergrative.mit.codebusters.Models.*;
 import intergrative.mit.codebusters.SensorRepo;
 import intergrative.mit.codebusters.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -19,7 +19,10 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class SensorController {
 
-    String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
+    private EmailConfig emailConfig;
+    public SensorController(EmailConfig emailConfig) {this.emailConfig = emailConfig;}
+
+    String timeStamp;
 
 
     @Autowired
@@ -28,10 +31,14 @@ public class SensorController {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private EmailsentRepo emailsentRepo;
+
 
 
     @PostMapping("/addSensor/{user}/Light")
     public String saveSensor(@RequestBody LightSensor sensor, @PathVariable String user){
+        timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
         Optional<User> userData = userRepo.findById(user);
 
         User _user = userData.get();
@@ -55,11 +62,9 @@ public class SensorController {
 
     @PostMapping("/addSensor/{user}/Temp")
     public String saveSensor2(@RequestBody TempSensor sensor,@PathVariable String user){
+        timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
         Optional<User> userData = userRepo.findById(user);
 
-        if (sensor.temps.isEmpty()){
-            sensor.setTemps(0,timeStamp);
-        }
         User _user = userData.get();
         sensor.setType(sensor.setType());
         sensor.setUserID(user);
@@ -96,18 +101,61 @@ public class SensorController {
     }
 
     @PatchMapping("/{user}/update/{id}/{temp}")
-    public String updateSen(@PathVariable String id,@PathVariable double temp,@RequestBody Sensor sensor,@PathVariable String user){
+    public String updateSen(@PathVariable String id,@PathVariable double temp,@PathVariable String user){
         Optional<Sensor> sensorData = sensorRepo.findById(id);
+        Optional<User> userData = userRepo.findById(user);
         timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
-         if( sensorData.isPresent()){
+         try{
              Sensor _sensor = sensorData.get();
-             _sensor.setTemps(temp,timeStamp);
+             User _user = userData.get();
+
+             EmailTable emailTable = new EmailTable();
+             emailTable.setUserId(_user.getUserId());
+             emailTable.setSensorId(_sensor.getId());
+             emailTable.setTime(timeStamp);
+             emailTable.setFrom("sensor@project.com");
+             emailTable.setTo(_user.getEmail());
+             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+
+             mailSender.setHost(this.emailConfig.getHost());
+             mailSender.setPort(this.emailConfig.getPort());
+             mailSender.setUsername(this.emailConfig.getUsername());
+             mailSender.setPassword(this.emailConfig.getPassword());
+
+             if ((temp > _sensor.getThreshold2()) || (temp < _sensor.getThreshold1())){
+                 simpleMailMessage.setTo(_user.getEmail());
+                 simpleMailMessage.setFrom("sensor@project.com");
+                 String text = "Your Sensor recorded an Anomaly in Temperature.\n\nSensor ID:"+_sensor.getId()+"\nSensor Name: "+_sensor.getName()+"\nSensor Temperature: "+temp+"C"+"\nTime: "+timeStamp;
+
+
+                 if (temp > _sensor.getThreshold2()){
+                     simpleMailMessage.setSubject(_sensor.getName()+": High Temperature Warning");
+                     simpleMailMessage.setText(text);
+                     emailTable.setMessage(text);
+                     System.out.println("Too hot");
+                 }
+
+                 if (temp < _sensor.getThreshold1()){
+                     simpleMailMessage.setSubject(_sensor.getName()+": Low Temperature Warning");
+                     simpleMailMessage.setText(text);
+                     emailTable.setMessage(text);
+                     System.out.println("Too Cold");
+                 }
+                 emailTable.setValue(temp);
+                 emailsentRepo.save(emailTable);
+                 mailSender.send(simpleMailMessage);
+                 _sensor.setTemps(temp,timeStamp, emailTable.getId());
+             }else {
+                 _sensor.setTemps(temp,timeStamp, "null");
+             }
+
              _sensor.setLastUpdate(timeStamp);
              sensorRepo.save(_sensor);
              return "Data added";
-         }else{
-             return "No sensor detected";
+         }catch (Exception e){
+             return "No sensor detected. Exception: "+ e;
          }
 
     }

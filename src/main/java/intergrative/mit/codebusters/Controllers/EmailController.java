@@ -21,8 +21,7 @@ public class EmailController {
     public EmailController(EmailConfig emailConfig) {this.emailConfig = emailConfig;}
 
     @PostMapping
-    public void sendMessage(@RequestBody Message message,
-                            BindingResult bindingResult) {
+    public void sendMessage(@RequestBody Message message, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("Feedback is not valid");
         }
@@ -37,7 +36,7 @@ public class EmailController {
         // Create an email instance
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("sensors@project.com");
-        mailMessage.setTo("temperature@server.com");
+        mailMessage.setTo("mnipunai7@gmail.com");
         mailMessage.setSubject("High Temperature Warning ");
         mailMessage.setText(message.getMessage());
 

@@ -36,8 +36,8 @@ public class Sensor {
         return temps;
     }
 
-    public void setTemps(double d,String stamp) {
-        this.temps.add(new String[]{String.valueOf(d), stamp});
+    public void setTemps(double d,String stamp,String emialId) {
+        this.temps.add(new String[]{String.valueOf(d), stamp,emialId});
     }
 
     public String getId() {
