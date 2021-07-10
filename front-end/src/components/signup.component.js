@@ -8,17 +8,16 @@ export default class SignUp extends Component {
     constructor() {
         super();
 
+
         this.state = {
 
-            data: {
+           
                 firstname : '',
                 lastname : '',
                 email : '',
                 password : '',
-                confpass: ''
-            },
-            
-            errors: ' '
+                confpass: '',
+                errors: {}
         }
 
         this.onChange=this.onChange.bind(this)
@@ -26,42 +25,62 @@ export default class SignUp extends Component {
     }
 
     validate = () => {
-        const { data } = this.state;
+        const {  firstname ,
+        lastname,
+        email,
+        password ,
+        confpass} = this.state;
+
+
+        
         
         let errors = {};
+            
 
-        if (data.firstname === '' ) errors.firstname = "First Name cannot be empty.";
-        if (data.lastname === '' ) errors.lastname = "Last Name cannot be empty.";
-        if (data.email === '' ) errors.email = "Email cannot be empty.";
-/*         if (!isEmail(data.email) ) errors.email = "Email must be a valid email."; */
-        if (data.password === '' ) errors.password = "Password cannot be a blank.";
-/*         if (!isLength(data.password,4,12)) errors.password = "Password must have 4-12 charachters."; */
-        if (data.confpass !== data.password ) errors.confpass = "Password must be same.";
+        if (firstname === '') errors.firstname = "First Name cannot be empty.";
+        if (lastname === '' ) errors.lastname = "Last Name cannot be empty.";
+        if (email === '' ) errors.email = "Email cannot be empty.";
+        if (!isEmail(email) ) errors.email = "Email must be a valid email.";
+        if (password === '' ) errors.password = "Password cannot be a blank.";
+        if (!isLength(password,4,12)) errors.password = "Password must have 4-12 charachters.";
+        if (confpass !== password ) errors.confpass = "Password must be same.";
 
         return errors;
+    
 
     }
 
     onChange(e){
         this.setState({
-            data: {
-                [e.target.name]:e.target.value
-            },
+           
+                [e.target.name]:e.target.value,
+          
             errors: {
                 [e.target.name]: ''
             }
             })
     }
+    
 
     onSubmit(e) {
         e.preventDefault()
         
-        const data   = this.state;
+        const {
+        firstname ,
+        lastname,
+        email,
+        password ,
+        confpass   }= this.state;
         const errors = this.validate();
+
 
         if(Object.keys(errors).length === 0){
             //write api to database
-            console.log(data);
+            console.log(firstname ,
+                lastname,
+                email,
+                password ,
+                confpass);
         }
         else{
             this.setState({errors});
@@ -70,7 +89,11 @@ export default class SignUp extends Component {
     }
 
     render() {
-        const { errors } = this.state;
+        const { firstname ,
+        lastname,
+        email,
+        password ,
+        confpass, errors } = this.state;
         return (
             <div>
                 <Header/>
@@ -85,7 +108,7 @@ export default class SignUp extends Component {
                     placeholder="First name" 
                     name="firstname" 
                     required 
-                    value={this.state.data.firstname}
+                    value={this.state.firstname}
                     onChange={this.onChange}
                     invalid= {errors.firstname ? true : false} />
                     <FormFeedback>{errors.firstname}</FormFeedback>
@@ -99,7 +122,7 @@ export default class SignUp extends Component {
                     placeholder="Last name" 
                     name="lastname" 
                     required 
-                    value={this.state.data.lastname}
+                    value={this.state.lastname}
                     onChange={this.onChange}
                     invalid= {errors.lastname ? true : false} />
                     <FormFeedback>{errors.lastname}</FormFeedback>
@@ -113,7 +136,7 @@ export default class SignUp extends Component {
                     placeholder="Enter email" 
                     name="email" 
                     required 
-                    value={this.state.data.email}
+                    value={this.state.email}
                     onChange={this.onChange}
                     invalid= {errors.email ? true : false} />
                     <FormFeedback>{errors.email}</FormFeedback>
@@ -127,7 +150,7 @@ export default class SignUp extends Component {
                     placeholder="Enter password" 
                     name="password" 
                     required 
-                    value={this.state.data.password}
+                    value={this.state.password}
                     onChange={this.onChange} 
                     invalid= {errors.password ? true : false} />
                     <FormFeedback>{errors.password}</FormFeedback>
@@ -140,7 +163,7 @@ export default class SignUp extends Component {
                     placeholder="Re-Enter password" 
                     name="confpass" 
                     required
-                    value={this.state.data.confpass}
+                    value={this.state.confpass}
                     onChange={this.onChange} 
                     invalid= {errors.confpass ? true : false} />
                     <FormFeedback>{errors.confpass}</FormFeedback>
