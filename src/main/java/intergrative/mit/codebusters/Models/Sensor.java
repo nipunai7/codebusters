@@ -21,7 +21,7 @@ public class Sensor {
     public Sensor() {
     }
 
-    public Sensor(String name, String addDate, String lastUpdate, List temps, String userID, double threshold1, double threshold2,String type) {
+    public Sensor(String name, String addDate, String lastUpdate, List temps, String userID, double threshold1, double threshold2, String type) {
         this.name = name;
         this.addDate = addDate;
         this.lastUpdate = lastUpdate;
@@ -36,8 +36,8 @@ public class Sensor {
         return temps;
     }
 
-    public void setTemps(double d,String stamp,String emialId) {
-        this.temps.add(new String[]{String.valueOf(d), stamp,emialId});
+    public void setTemps(double d, String stamp, String emialId) {
+        this.temps.add(new String[]{String.valueOf(d), stamp, emialId});
     }
 
     public String getId() {
@@ -72,17 +72,29 @@ public class Sensor {
         this.lastUpdate = lastUpdate;
     }
 
-    public String getUserID() { return userID; }
+    public String getUserID() {
+        return userID;
+    }
 
-    public void setUserID(String userID) {this.userID = userID; }
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
-    public double getThreshold1() { return threshold1; }
+    public double getThreshold1() {
+        return threshold1;
+    }
 
-    public void setThreshold1(double threshold1) {this.threshold1 = threshold1;}
+    public void setThreshold1(double threshold1) {
+        this.threshold1 = threshold1;
+    }
 
-    public double getThreshold2() {return threshold2;}
+    public double getThreshold2() {
+        return threshold2;
+    }
 
-    public void setThreshold2(double threshold2) {this.threshold2 = threshold2;}
+    public void setThreshold2(double threshold2) {
+        this.threshold2 = threshold2;
+    }
 
     public String getType() {
         return type;

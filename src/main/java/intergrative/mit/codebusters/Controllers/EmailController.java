@@ -18,7 +18,9 @@ public class EmailController {
 
     private EmailConfig emailConfig;
 
-    public EmailController(EmailConfig emailConfig) {this.emailConfig = emailConfig;}
+    public EmailController(EmailConfig emailConfig) {
+        this.emailConfig = emailConfig;
+    }
 
     @PostMapping
     public void sendMessage(@RequestBody Message message, BindingResult bindingResult) {

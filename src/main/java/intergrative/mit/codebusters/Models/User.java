@@ -16,11 +16,11 @@ public class User {
     public String password;
     public List sensors = new ArrayList();
 
-    public User(){
+    public User() {
 
     }
 
-    public User( String uName, String jdate, List sensors, String email, String password) {
+    public User(String uName, String jdate, List sensors, String email, String password) {
         this.uName = uName;
         this.jdate = jdate;
         this.sensors = sensors;
@@ -32,7 +32,9 @@ public class User {
         return sensors;
     }
 
-    public void setSensors(String sensorID,String timeStamp) { this.sensors.add(new String[]{sensorID,timeStamp}); }
+    public void setSensors(String sensorID, String timeStamp) {
+        this.sensors.add(new String[]{sensorID, timeStamp});
+    }
 
 
     public String getUserId() {
