@@ -2,7 +2,7 @@
   "name": "react-login-signup-ui-template",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {    
+  "dependencies": {
     "password-validator": "^5.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -13,7 +13,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "chart.js": "^3.4.1",
-    "react-chartjs-2": "^3.0.3",
+    "react-chartjs-2": "^3.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
