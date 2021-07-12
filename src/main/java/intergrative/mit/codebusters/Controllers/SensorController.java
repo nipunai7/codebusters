@@ -1,9 +1,9 @@
 package intergrative.mit.codebusters.Controllers;
 
-import intergrative.mit.codebusters.EmailsentRepo;
+import intergrative.mit.codebusters.Repositories.EmailsentRepo;
 import intergrative.mit.codebusters.Models.*;
-import intergrative.mit.codebusters.SensorRepo;
-import intergrative.mit.codebusters.UserRepo;
+import intergrative.mit.codebusters.Repositories.SensorRepo;
+import intergrative.mit.codebusters.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
