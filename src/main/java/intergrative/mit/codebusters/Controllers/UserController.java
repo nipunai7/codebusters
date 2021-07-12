@@ -1,5 +1,6 @@
 package intergrative.mit.codebusters.Controllers;
 
+import intergrative.mit.codebusters.Models.Login;
 import intergrative.mit.codebusters.Models.User;
 import intergrative.mit.codebusters.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,12 @@ public class UserController {
     public String saveUser(@RequestBody User user) {
         timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
+        List<User> userData = userRepo.findAll();
+        for (User user1 : userData){
+            if (user1.getEmail().equals(user.getEmail())){
+                return "User Exists";
+            }
+        }
         user.setJdate(timeStamp);
         userRepo.save(user);
         return "User Saved: " + user.getUserId();
@@ -55,6 +62,19 @@ public class UserController {
         }
     }
 
-    public String userLogin(@RequestBody)
+    @PostMapping("/login")
+    public String userLogin(@RequestBody User user){
+        List<User> userData = userRepo.findAll();
+        for (User user1 : userData){
+            if (user1.getEmail().equals(user.getEmail())){
+                if (user1.getPassword().equals(user.getPassword())){
+                    return "Login Success";
+                }
+                return "Wrong Password";
+            }
+            return "Wrong Credentials";
+        }
+        return "No user in Database";
+    }
 
 }
