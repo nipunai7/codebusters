@@ -7,6 +7,7 @@ import intergrative.mit.codebusters.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.web.header.Header;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +40,7 @@ public class SensorController {
 
 
     @PostMapping("/addSensor/{user}/Light")
-    public String saveSensor(@RequestBody LightSensor sensor, @PathVariable String user) {
+    public String saveSensor(@RequestBody LightSensor sensor, @PathVariable String user, @RequestHeader("Authorization") String Authorization) {
         timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
         Optional<UserModel> userData = userRepo.findById(user);
 
@@ -59,6 +60,7 @@ public class SensorController {
             sensorRepo.save(sensor);
             _userModel.setSensors(sensor.getId(), timeStamp);
             userRepo.save(_userModel);
+            System.out.println(Authorization);
             return "Sensor Added: " + sensor.getId();
         } catch (Exception e) {
             return e.toString();

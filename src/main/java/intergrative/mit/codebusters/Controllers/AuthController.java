@@ -50,10 +50,12 @@ public class AuthController {
         userModel.setJdate(timeStamp);
         try {
             userRepo.save(userModel);
-            return ResponseEntity.ok(new AuthResponse("UserModel saved: " + userModel.getUserId()));
         } catch (Exception e) {
             return ResponseEntity.ok(new AuthResponse("Error occurred" + e));
         }
+        final UserDetails userDetails = userService.loadUserByUsername(userModel.getEmail());
+        final String jwt = jwtUtil.generateToken(userDetails,userModel.getUserId(),userModel.getUsername());
+        return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
     @PostMapping("/auth/login")
@@ -73,7 +75,8 @@ public class AuthController {
         }
 
         final UserDetails userDetails = userService.loadUserByUsername(user);
-        final String jwt = jwtUtil.generateToken(userDetails);
+        UserModel userModel = userRepo.findByEmail(user);
+        final String jwt = jwtUtil.generateToken(userDetails,userModel.getUserId(),userModel.getUsername());
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
