@@ -3,17 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "password-validator": "^5.1.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.1.2",
-    "reactstrap": "^8.9.0",
-    "validator": "^13.6.0",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "chart.js": "^3.4.1",
-    "react-chartjs-2": "^3.0.3"
+    "password-validator": "^5.1.1",
+    "react": "^16.14.0",
+    "react-chartjs-2": "^3.0.3",
+    "react-dom": "^16.14.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.1.2",
+    "reactstrap": "^8.9.0",
+    "validator": "^13.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
