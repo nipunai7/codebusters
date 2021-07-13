@@ -1,7 +1,8 @@
 package intergrative.mit.codebusters.Controllers;
 
-import intergrative.mit.codebusters.Models.Login;
+import intergrative.mit.codebusters.Models.EmailTable;
 import intergrative.mit.codebusters.Models.User;
+import intergrative.mit.codebusters.Repositories.EmailsentRepo;
 import intergrative.mit.codebusters.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,9 @@ public class UserController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private EmailsentRepo emailsentRepo;
 
     @PostMapping("/addUser")
     public String saveUser(@RequestBody User user) {
@@ -76,6 +80,12 @@ public class UserController {
             return "Wrong Credentials";
         }
         return "No user in Database";
+    }
+
+    @GetMapping("/emailtable")
+    public List emailTable(){
+        List<EmailTable> emailTables = emailsentRepo.findAll();
+        return emailTables;
     }
 
 }
