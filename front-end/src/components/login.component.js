@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "./header";
+import { login } from "../Services/authService";
 import "./login.signin.css";
 
 export default class Login extends Component {
@@ -15,15 +15,21 @@ export default class Login extends Component {
     this.onAuth = this.onAuth.bind(this);
   }
 
-  onChange(e) {
+  onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
-  onAuth(e) {
+  onAuth = async e => {
     e.preventDefault();
     //write api code
-    const { email, password } = this.state;
-  }
+    try {
+      const user = {
+        email: this.state.email,
+        pass: this.state.password
+      };
+      await login(user);
+    } catch (error) {}
+  };
 
   render() {
     return (
@@ -31,7 +37,7 @@ export default class Login extends Component {
         className="w-100  d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <form onSubmit={this.onSubmit} style={{ height: "45vh", width: "40%" }}>
+        <form onSubmit={this.onAuth} style={{ height: "45vh", width: "40%" }}>
           <div className="form-group mb-2">
             <label>Email</label>
             <input

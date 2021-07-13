@@ -6,8 +6,8 @@ const apiUrl = "http://localhost:8080/auth";
 setJwt(getJwt());
 
 export async function login(user) {
-  const { data: jwt } = await http.post(`${apiUrl}/login`, user);
-  localStorage.setItem("token", jwt);
+  const { data } = await http.post(`${apiUrl}/login`, user);
+  localStorage.setItem("token", data.response);
 }
 
 export function logout() {
