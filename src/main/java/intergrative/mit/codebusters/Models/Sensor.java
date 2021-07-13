@@ -8,15 +8,15 @@ import java.util.List;
 public class Sensor {
 
     @Id
-    public String id;
-    public String type;
-    public String name;
-    public String addDate;
-    public String lastUpdate;
-    public List temps = new ArrayList();
-    public String userID;
-    public double threshold1;
-    public double threshold2;
+    private String id;
+    private String type;
+    private String name;
+    private String addDate;
+    private String lastUpdate;
+    private List temps = new ArrayList();
+    private String userID;
+    private double threshold1;
+    private double threshold2;
 
     public Sensor() {
     }

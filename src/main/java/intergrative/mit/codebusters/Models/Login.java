@@ -1,6 +1,15 @@
 package intergrative.mit.codebusters.Models;
 
-public class Login{
+public class Login {
+
+    public Login() {
+    }
+
+    public Login(String email, String pass) {
+        this.email = email;
+        this.pass = pass;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -9,19 +18,15 @@ public class Login{
         this.email = email;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
-    public Login(String email, String passWord) {
-        this.email = email;
-        this.passWord = passWord;
-    }
+    private String email;
+    private String pass;
 
-    public String email;
-    public String passWord;
 }

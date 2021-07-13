@@ -41,9 +41,9 @@ public class SensorController {
     @PostMapping("/addSensor/{user}/Light")
     public String saveSensor(@RequestBody LightSensor sensor, @PathVariable String user) {
         timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
-        Optional<User> userData = userRepo.findById(user);
+        Optional<UserModel> userData = userRepo.findById(user);
 
-        User _user = userData.get();
+        UserModel _userModel = userData.get();
         sensor.setType(sensor.setType());
         sensor.setUserID(user);
         sensor.setAddDate(timeStamp);
@@ -52,10 +52,13 @@ public class SensorController {
         System.out.println(userData);
         System.out.println(sensor.getId());
 
+        if (sensor == null){
+            return "No details provided";
+        }
         try {
             sensorRepo.save(sensor);
-            _user.setSensors(sensor.getId(), timeStamp);
-            userRepo.save(_user);
+            _userModel.setSensors(sensor.getId(), timeStamp);
+            userRepo.save(_userModel);
             return "Sensor Added: " + sensor.getId();
         } catch (Exception e) {
             return e.toString();
@@ -65,9 +68,9 @@ public class SensorController {
     @PostMapping("/addSensor/{user}/Temp")
     public String saveSensor2(@RequestBody TempSensor sensor, @PathVariable String user) {
         timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
-        Optional<User> userData = userRepo.findById(user);
+        Optional<UserModel> userData = userRepo.findById(user);
 
-        User _user = userData.get();
+        UserModel _userModel = userData.get();
         sensor.setType(sensor.setType());
         sensor.setUserID(user);
         sensor.setAddDate(timeStamp);
@@ -78,8 +81,8 @@ public class SensorController {
 
         try {
             sensorRepo.save(sensor);
-            _user.setSensors(sensor.getId(), timeStamp);
-            userRepo.save(_user);
+            _userModel.setSensors(sensor.getId(), timeStamp);
+            userRepo.save(_userModel);
             return "Sensor Added: " + sensor.getId();
         } catch (Exception e) {
             return e.toString();
@@ -105,19 +108,19 @@ public class SensorController {
     @PatchMapping("/{user}/update/{id}/{temp}")
     public String updateSen(@PathVariable String id, @PathVariable double temp, @PathVariable String user) {
         Optional<Sensor> sensorData = sensorRepo.findById(id);
-        Optional<User> userData = userRepo.findById(user);
+        Optional<UserModel> userData = userRepo.findById(user);
         timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
         try {
             Sensor _sensor = sensorData.get();
-            User _user = userData.get();
+            UserModel _userModel = userData.get();
 
             EmailTable emailTable = new EmailTable();
-            emailTable.setUserId(_user.getUserId());
+            emailTable.setUserId(_userModel.getUserId());
             emailTable.setSensorId(_sensor.getId());
             emailTable.setTime(timeStamp);
             emailTable.setFrom("sensor@project.com");
-            emailTable.setTo(_user.getEmail());
+            emailTable.setTo(_userModel.getEmail());
             SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
             JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
@@ -127,7 +130,7 @@ public class SensorController {
             mailSender.setPassword(this.emailConfig.getPassword());
 
             if ((temp > _sensor.getThreshold2()) || (temp < _sensor.getThreshold1())) {
-                simpleMailMessage.setTo(_user.getEmail());
+                simpleMailMessage.setTo(_userModel.getEmail());
                 simpleMailMessage.setFrom("sensor@project.com");
                 String text = "Your Sensor recorded an Anomaly in Temperature.\n\nSensor ID:" + _sensor.getId() + "\nSensor Name: " + _sensor.getName() + "\nSensor Temperature: " + temp + "C" + "\nTime: " + timeStamp;
 

@@ -1,27 +1,28 @@
 package intergrative.mit.codebusters.Models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+@Document(collection = "user")
+public class UserModel {
 
     @Id
-    public String id;
-    public String uName;
-    public String jdate;
-    public String email;
-    public String password;
-    public List sensors = new ArrayList();
+    private String id;
+    private String username;
+    private String jdate;
+    private String email;
+    private String password;
+    private List sensors = new ArrayList();
 
-    public User() {
-
+    public UserModel() {
     }
 
-    public User(String uName, String jdate, List sensors, String email, String password) {
-        this.uName = uName;
+    public UserModel(String username, String jdate, List sensors, String email, String password) {
+        this.username = username;
         this.jdate = jdate;
         this.sensors = sensors;
         this.email = email;
@@ -36,6 +37,13 @@ public class User {
         this.sensors.add(new String[]{sensorID, timeStamp});
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getUserId() {
         return id;
@@ -43,14 +51,6 @@ public class User {
 
     public void setUserId(String id) {
         this.id = id;
-    }
-
-    public String getuName() {
-        return uName;
-    }
-
-    public void setuName(String uName) {
-        this.uName = uName;
     }
 
     public String getJdate() {
@@ -75,17 +75,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", uName='" + uName + '\'' +
-                ", jdate='" + jdate + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", sensors=" + sensors +
-                '}';
     }
 }
