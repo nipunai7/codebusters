@@ -26,6 +26,10 @@ class SensorTable extends Component {
     {
       label: "Last Updated",
       path: "lastUpdate"
+    },
+    {
+      key: "delete",
+      content: () => <button className="btn btn-s btn-danger">Delete</button>
     }
   ];
 

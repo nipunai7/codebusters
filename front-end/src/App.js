@@ -13,7 +13,7 @@ function App() {
   return (
     <React.Fragment>
       <Header />
-      <div style={{ overflow: "auto" }}>
+      <div>
         <Switch>
           <Route path="/sign-in" component={Login} />
           <Route path="/sign-up" component={SignUp} />
