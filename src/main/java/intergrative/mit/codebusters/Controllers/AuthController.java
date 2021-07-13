@@ -18,9 +18,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*" )
+
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "*")
+
 public class AuthController {
 
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());

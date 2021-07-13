@@ -7,7 +7,7 @@ setJwt(getJwt());
 
 export async function login(user) {
   const { data } = await http.post(`${apiUrl}/login`, user);
-  localStorage.setItem("token", data.response);
+  localStorage.setItem("token", "Bearer " + data.response);
 }
 
 export function logout() {

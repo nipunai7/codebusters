@@ -22,13 +22,11 @@ export default class Login extends Component {
   onAuth = async e => {
     e.preventDefault();
     //write api code
-    try {
-      const user = {
-        email: this.state.email,
-        pass: this.state.password
-      };
-      await login(user);
-    } catch (error) {}
+    const user = {
+      email: this.state.email,
+      pass: this.state.password
+    };
+    await login(user);
   };
 
   render() {
