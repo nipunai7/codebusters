@@ -2,12 +2,31 @@ import http from "./httpService";
 
 const apiUrl = "http://localhost:8080/api";
 
-const userId = "60e8ff1cf1434d597dfbd6cb";
-
-export function getSensors() {
+export function getSensors(userId) {
   return http.get(`${apiUrl}/${userId}/listsensors`);
 }
 
-export function getSensor(sensorId) {
+export function getSensor(userId, sensorId) {
   return http.get(`${apiUrl}/${userId}/listsensors/${sensorId}`);
+}
+
+export async function getSensorName(userId, sensorId) {
+  try {
+    const { data: sensor } = await getSensor(userId, sensorId);
+    return sensor.name;
+  } catch (ex) {
+    return null;
+  }
+}
+
+export function addLightSensor(userId) {
+  return http.post(`${apiUrl}/addSensor/${userId}/Light`);
+}
+
+export function addTempSensor(userId) {
+  return http.post(`${apiUrl}/addSensor/${userId}/Temp`);
+}
+
+export function deleteSensor(userId, sensorId) {
+  return http.delete(`${apiUrl}/${userId}/del/${sensorId}`);
 }

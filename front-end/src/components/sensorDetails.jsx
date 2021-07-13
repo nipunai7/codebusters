@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import Chart from "./chart";
+import EmailTable from "./emailTable";
 import { getSensors, getSensor } from "../Services/sensorService";
+import { getMailsOfSensor } from "../Services/emailService";
 
 class SensorDetails extends Component {
   state = {
     data: { type: "Light", sensor: "" },
     sensors: [],
     temps: [],
-    stamps: []
+    stamps: [],
+    emails: []
   };
 
   async componentDidMount() {
-    const { data: allSensors } = await getSensors();
+    const userId = "60e8ff1cf1434d597dfbd6cb";
+    const { data: allSensors } = await getSensors(userId);
     const sensors = allSensors.filter(
       sensor => sensor.type === this.state.data.type
     );
@@ -20,9 +24,10 @@ class SensorDetails extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
+    const userId = "60e8ff1cf1434d597dfbd6cb";
     const { data } = this.state;
     if (prevState.data.type !== data.type) {
-      const { data: allSensors } = await getSensors();
+      const { data: allSensors } = await getSensors(userId);
       const sensors = allSensors.filter(sensor => sensor.type === data.type);
       const dataNow = data;
       data.sensor = "";
@@ -31,7 +36,7 @@ class SensorDetails extends Component {
 
     if (prevState.data.sensor !== data.sensor) {
       try {
-        const { data: sensor } = await getSensor(data.sensor);
+        const { data: sensor } = await getSensor(userId, data.sensor);
         const readings = sensor.temps;
         const temps = readings.map(reading => {
           const temp = reading[0];
@@ -41,7 +46,10 @@ class SensorDetails extends Component {
           const stamp = reading[1];
           return stamp;
         });
-        this.setState({ temps, stamps });
+
+        const emails = await getMailsOfSensor(data.sensor);
+
+        this.setState({ temps, stamps, emails });
       } catch (ex) {
         this.setState({ temps: [], stamps: [] });
       }
@@ -55,7 +63,7 @@ class SensorDetails extends Component {
   };
 
   render() {
-    const { data, sensors, temps, stamps } = this.state;
+    const { data, sensors, temps, stamps, emails } = this.state;
     return (
       <React.Fragment>
         <div className="form-group row mb-3 mt-5">
@@ -116,6 +124,11 @@ class SensorDetails extends Component {
         <div className="row m-3">
           <div className="offset-3 col-sm-7">
             <Chart type={data.type} temps={temps} stamps={stamps} />
+          </div>
+        </div>
+        <div className="row m-3">
+          <div className="offset-3 col-sm-7">
+            <EmailTable emails={emails} />
           </div>
         </div>
       </React.Fragment>

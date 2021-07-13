@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-
 export default class Login extends Component {
   constructor() {
     super();
@@ -20,8 +19,6 @@ export default class Login extends Component {
 
   onAuth(e) {
     e.preventDefault();
-
-    const { email, password } = this.state;
   }
 
   render() {
@@ -29,7 +26,6 @@ export default class Login extends Component {
       <div className="outer">
         <div className="inner">
           <div>
-            
             <form>
               <h3>LOG IN</h3>
 
