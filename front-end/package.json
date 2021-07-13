@@ -6,6 +6,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "chart.js": "^3.4.1",
+    "joi-browser": "^13.4.0",
     "password-validator": "^5.1.1",
     "react": "^16.14.0",
     "react-chartjs-2": "^3.0.3",

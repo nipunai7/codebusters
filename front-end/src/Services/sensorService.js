@@ -19,12 +19,12 @@ export async function getSensorName(userId, sensorId) {
   }
 }
 
-export function addLightSensor(userId) {
-  return http.post(`${apiUrl}/addSensor/${userId}/Light`);
+export function addLightSensor(userId, sensor) {
+  return http.post(`${apiUrl}/addSensor/${userId}/Light`, sensor);
 }
 
-export function addTempSensor(userId) {
-  return http.post(`${apiUrl}/addSensor/${userId}/Temp`);
+export function addTempSensor(userId, sensor) {
+  return http.post(`${apiUrl}/addSensor/${userId}/Temp`, sensor);
 }
 
 export function deleteSensor(userId, sensorId) {

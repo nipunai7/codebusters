@@ -51,7 +51,7 @@ class SensorDetails extends Component {
 
         this.setState({ temps, stamps, emails });
       } catch (ex) {
-        this.setState({ temps: [], stamps: [] });
+        this.setState({ temps: [], stamps: [], emails: [] });
       }
     }
   }
@@ -122,12 +122,12 @@ class SensorDetails extends Component {
           </div>
         </div>
         <div className="row m-3">
-          <div className="offset-3 col-sm-7">
+          <div className="offset-2 col-sm-8">
             <Chart type={data.type} temps={temps} stamps={stamps} />
           </div>
         </div>
         <div className="row m-3">
-          <div className="offset-3 col-sm-7">
+          <div className="offset-2 col-sm-8">
             <EmailTable emails={emails} />
           </div>
         </div>

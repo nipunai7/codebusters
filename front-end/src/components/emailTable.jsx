@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Table from "./Common/table";
-import { getUser } from "../Services/userService";
 
 class EmailTable extends Component {
   columns = [
@@ -9,7 +8,7 @@ class EmailTable extends Component {
       key: "date",
       content: email => {
         const parts = email.time.split(" ");
-        return `${parts[0]} @${parts[1]}`;
+        return `${parts[0]}  @ ${parts[1]}`;
       }
     },
     {
@@ -17,12 +16,8 @@ class EmailTable extends Component {
       path: "value"
     },
     {
-      label: "Username",
-      key: "user",
-      content: async email => {
-        const { data: user } = await getUser(email.userId);
-        return user.uName;
-      }
+      label: "User ID",
+      path: "userId"
     },
     {
       label: "To",
@@ -36,12 +31,15 @@ class EmailTable extends Component {
 
   render() {
     const { emails } = this.props;
-    if (emails.length === 0 || !emails)
+
+    if (emails.length === 0)
       return <h3>No abnormal readings were found so far</h3>;
 
     return (
       <React.Fragment>
-        <h3>Following instances generated abnormal readings</h3>
+        <h3 className="my-3">
+          Following instances generated abnormal readings
+        </h3>
         <Table columns={this.columns} data={emails} />
       </React.Fragment>
     );
