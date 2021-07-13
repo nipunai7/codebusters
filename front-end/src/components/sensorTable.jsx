@@ -29,7 +29,14 @@ class SensorTable extends Component {
     },
     {
       key: "delete",
-      content: () => <button className="btn btn-s btn-danger">Delete</button>
+      content: sensor => (
+        <button
+          className="btn btn-s btn-danger"
+          onClick={() => this.props.onDelete(sensor)}
+        >
+          Delete
+        </button>
+      )
     }
   ];
 
