@@ -66,8 +66,6 @@ public class AuthController {
         String user = login.getEmail();
         String pass = login.getPass();
 
-        System.out.println(user + pass);
-
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user, pass));
             System.out.println("Login Complete");

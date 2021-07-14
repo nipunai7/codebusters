@@ -28,8 +28,6 @@ public class UserService implements UserDetailsService {
         String name = foundUserModel.getEmail();
         String pwd = foundUserModel.getPassword();
 
-        System.out.println(name + pwd);
-
         return new User(name, pwd, new ArrayList<>());
     }
 
