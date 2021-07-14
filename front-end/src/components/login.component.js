@@ -86,7 +86,7 @@ export default class Login extends Component {
               Log In
             </button>
             <p className="forgot-password text-right">
-              Already have an account?<a href="/sign-up">Sign In?</a>
+              No Account to Manage your Sensors? <a href="/sign-up">Sign Up</a>
             </p>
           </div>
         </form>

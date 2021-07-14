@@ -165,7 +165,7 @@ export default class SignUp extends Component {
           {/* &nbsp; <input type='reset' className="btn btn-danger "  value='Reset'/> */}
 
           <p className="forgot-password text-right">
-            Already registered <a href="/sign-in">log in?</a>
+            Already registered? <a href="/sign-in">log in</a>
           </p>
         </form>
       </div>
