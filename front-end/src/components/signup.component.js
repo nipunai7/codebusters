@@ -62,9 +62,9 @@ export default class SignUp extends Component {
         email: email,
         password: password
       };
-      const data = await registerUser(user);
-      console.log(data);
+      const { data } = await registerUser(user);
       loginWithJwt(data);
+      window.location = "/sensor-details";
     } else {
       this.setState({ errors });
     }

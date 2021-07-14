@@ -28,6 +28,7 @@ export default class Login extends Component {
         pass: this.state.password
       };
       await login(user);
+      window.location = "/sensor-details";
     } catch (ex) {
       console.log(ex.message);
     }
