@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Input, FormFeedback } from "reactstrap";
 import { isEmail, isLength } from "validator";
+import { registerUser } from "../Services/userService";
+import { loginWithJwt } from "../Services/authService";
 import "./login.signin.css";
 
 export default class SignUp extends Component {
@@ -47,19 +49,26 @@ export default class SignUp extends Component {
     });
   }
 
-  onSubmit(e) {
+  onSubmit = async e => {
     e.preventDefault();
 
-    const { firstname, lastname, email, password, confpass } = this.state;
+    const { firstname, lastname, email, password } = this.state;
     const errors = this.validate();
 
     if (Object.keys(errors).length === 0) {
       //write api to database
-      console.log(firstname, lastname, email, password, confpass);
+      const user = {
+        username: firstname + " " + lastname,
+        email: email,
+        password: password
+      };
+      const data = await registerUser(user);
+      console.log(data);
+      loginWithJwt(data);
     } else {
       this.setState({ errors });
     }
-  }
+  };
 
   render() {
     const { errors } = this.state;

@@ -52,6 +52,7 @@ public class AuthController {
         userModel.setJdate(timeStamp);
         try {
             userRepo.save(userModel);
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userModel.getEmail(), userModel.getPassword()));
         } catch (Exception e) {
             return ResponseEntity.ok(new AuthResponse("Error occurred" + e));
         }

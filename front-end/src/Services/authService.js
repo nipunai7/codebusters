@@ -7,6 +7,9 @@ setJwt(getJwt());
 
 export async function login(user) {
   const { data } = await http.post(`${apiUrl}/login`, user);
+  if (data.response.startsWith("Error:")) {
+    throw new Error("Invalid Credentials");
+  }
   localStorage.setItem("token", "Bearer " + data.response);
 }
 
@@ -17,14 +20,14 @@ export function logout() {
 export function getCurrentUser() {
   try {
     const jwt = localStorage.getItem("token");
-    return jwtDecode(jwt);
+    return jwtDecode(jwt.substring(7));
   } catch (error) {
     return null;
   }
 }
 
-export function loginWithJwt(jwt) {
-  localStorage.setItem("token", jwt);
+export function loginWithJwt(data) {
+  localStorage.setItem("token", "Bearer " + data.response);
 }
 
 export function getJwt() {
