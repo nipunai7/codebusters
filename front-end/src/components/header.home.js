@@ -12,7 +12,7 @@ export default class TokenHeader extends Component {
                         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                             <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                    <Link className="nav-link" to={"/"}>Toekn</Link> {/* methanat token eka pass krapn */}
+                                    <Link className="nav-link" to={"/"}>Toekn</Link> {/* pass tokens here */}
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={"/sign-in"}>Log out</Link>
