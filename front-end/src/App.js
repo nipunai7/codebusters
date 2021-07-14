@@ -7,6 +7,7 @@ import SensorDetails from "./components/sensorDetails";
 import YourSensorsList from "./components/yourSensorsList";
 import AddSensorForm from "./components/addSensor";
 import { getCurrentUser } from "./Services/authService";
+import LogOut from "./components/Common/logout";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -29,7 +30,7 @@ class App extends Component {
             <Route path="/sensor-details" component={SensorDetails} />
             <Route path="/sensor-list" component={YourSensorsList} />
             <Route path="/add-sensor" component={AddSensorForm} />
-
+            <Route path="/logout" component={LogOut} />
             <Redirect from="/" to="/sign-in" />
           </Switch>
         </div>

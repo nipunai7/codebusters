@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./Common/form";
 import { addLightSensor, addTempSensor } from "../Services/sensorService";
+import { getCurrentUser } from "../Services/authService";
 
 class AddSensorForm extends Form {
   state = {
@@ -25,7 +26,7 @@ class AddSensorForm extends Form {
   doSubmit = async () => {
     //call the server
     const { data } = this.state;
-    const userId = "60e8ff1cf1434d597dfbd6cb";
+    const userId = getCurrentUser().jti;
 
     try {
       if (data.type === "Light") {

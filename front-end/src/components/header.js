@@ -7,8 +7,8 @@ export default class Header extends Component {
     const { user } = this.props;
     return (
       <nav className="navbar navbar-expand-lg navbar-light sticky-top">
-        <div className="container">
-          <Link className="navbar-brand" to={"/sign-in"}>
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/sign-in">
             Code Busters
           </Link>
           <div
@@ -19,12 +19,12 @@ export default class Header extends Component {
               {!user && (
                 <React.Fragment>
                   <li className="nav-item">
-                    <Link className="nav-link" to={"/sign-in"}>
+                    <Link className="nav-link" to="/sign-in">
                       Log In
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to={"/sign-up"}>
+                    <Link className="nav-link" to="/sign-up">
                       Sign Up
                     </Link>
                   </li>
@@ -32,19 +32,27 @@ export default class Header extends Component {
               )}
               {user && (
                 <React.Fragment>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={"/sensor-details"}>
+                  <li className="nav-item me-2">
+                    <Link className="btn btn-secondary">{user.sub}</Link>
+                  </li>
+                  <li className="nav-item me-2">
+                    <Link className="nav-link" to="/sensor-details">
                       Sensor Details
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={"/sensor-list"}>
+                  <li className="nav-item me-2">
+                    <Link className="nav-link" to="/sensor-list">
                       Sensor List
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to={"/add-sensor"}>
+                  <li className="nav-item me-2">
+                    <Link className="nav-link" to="/add-sensor">
                       Add Sensor
+                    </Link>
+                  </li>
+                  <li className="nav-item me-2 pt-1">
+                    <Link className="btn btn-primary btn-sm" to="/logout">
+                      Logout
                     </Link>
                   </li>
                 </React.Fragment>

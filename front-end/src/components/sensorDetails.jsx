@@ -3,6 +3,7 @@ import Chart from "./chart";
 import EmailTable from "./emailTable";
 import { getSensors, getSensor } from "../Services/sensorService";
 import { getMailsOfSensor } from "../Services/emailService";
+import { getCurrentUser } from "../Services/authService";
 
 class SensorDetails extends Component {
   state = {
@@ -10,24 +11,25 @@ class SensorDetails extends Component {
     sensors: [],
     temps: [],
     stamps: [],
-    emails: []
+    emails: [],
+    user: ""
   };
 
   async componentDidMount() {
-    const userId = "60e8ff1cf1434d597dfbd6cb";
-    const { data: allSensors } = await getSensors(userId);
+    const user = getCurrentUser();
+    const { data: allSensors } = await getSensors(user.jti);
     const sensors = allSensors.filter(
       sensor => sensor.type === this.state.data.type
     );
 
-    this.setState({ sensors });
+    this.setState({ sensors, user });
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    const userId = "60e8ff1cf1434d597dfbd6cb";
+    const user = getCurrentUser();
     const { data } = this.state;
     if (prevState.data.type !== data.type) {
-      const { data: allSensors } = await getSensors(userId);
+      const { data: allSensors } = await getSensors(user.jti);
       const sensors = allSensors.filter(sensor => sensor.type === data.type);
       const dataNow = data;
       data.sensor = "";
@@ -36,7 +38,7 @@ class SensorDetails extends Component {
 
     if (prevState.data.sensor !== data.sensor) {
       try {
-        const { data: sensor } = await getSensor(userId, data.sensor);
+        const { data: sensor } = await getSensor(user.jti, data.sensor);
         const readings = sensor.temps;
         const temps = readings.map(reading => {
           const temp = reading[0];
@@ -63,7 +65,7 @@ class SensorDetails extends Component {
   };
 
   render() {
-    const { data, sensors, temps, stamps, emails } = this.state;
+    const { data, sensors, temps, stamps, emails, user } = this.state;
     return (
       <React.Fragment>
         <div className="form-group row mb-3 mt-5">
@@ -128,7 +130,7 @@ class SensorDetails extends Component {
         </div>
         <div className="row m-3">
           <div className="offset-2 col-sm-8">
-            <EmailTable emails={emails} />
+            <EmailTable emails={emails} user={user} />
           </div>
         </div>
       </React.Fragment>

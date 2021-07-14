@@ -16,8 +16,9 @@ class EmailTable extends Component {
       path: "value"
     },
     {
-      label: "User ID",
-      path: "userId"
+      label: "Username",
+      key: "user",
+      content: () => this.props.user.iss
     },
     {
       label: "To",
