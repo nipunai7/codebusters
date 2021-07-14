@@ -93,7 +93,7 @@ public class SensorController {
 
     @GetMapping("/{user}/listsensors")
     public List<Sensor> getSensors(@PathVariable String user) {
-        return sensorRepo.findAll();
+        return sensorRepo.findByUserID(user);
     }
 
     @GetMapping("/{user}/listsensors/{id}")
