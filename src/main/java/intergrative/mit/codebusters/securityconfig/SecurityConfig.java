@@ -1,6 +1,7 @@
 package intergrative.mit.codebusters.securityconfig;
 
 import intergrative.mit.codebusters.services.UserService;
+import intergrative.mit.codebusters.utils.CorsFilter;
 import intergrative.mit.codebusters.utils.JwtRequestFilter;
 import intergrative.mit.codebusters.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -40,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class);
     }
 
     @Bean

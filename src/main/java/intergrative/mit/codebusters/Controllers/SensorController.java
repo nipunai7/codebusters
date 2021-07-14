@@ -7,7 +7,6 @@ import intergrative.mit.codebusters.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.security.web.header.Header;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -15,9 +14,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
+
 public class SensorController {
 
     private EmailConfig emailConfig;
@@ -92,6 +93,7 @@ public class SensorController {
     }
 
     @GetMapping("/{user}/listsensors")
+    @CrossOrigin(origins = "http://localhost:8080")
     public List<Sensor> getSensors(@PathVariable String user) {
         return sensorRepo.findAll();
     }
