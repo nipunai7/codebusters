@@ -12,6 +12,9 @@
   color: rgb(255 255 255) !important;
 }
 
+.navbar-light .navbar-nav .nav-link:hover{
+  color: rgb(000 000 000) !important;
+}
 .outer {
   display: flex;
   justify-content: center;
