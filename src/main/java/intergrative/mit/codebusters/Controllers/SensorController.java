@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 
 public class SensorController {
 
@@ -93,7 +92,6 @@ public class SensorController {
     }
 
     @GetMapping("/{user}/listsensors")
-    @CrossOrigin(origins = "http://localhost:8080")
     public List<Sensor> getSensors(@PathVariable String user) {
         return sensorRepo.findAll();
     }

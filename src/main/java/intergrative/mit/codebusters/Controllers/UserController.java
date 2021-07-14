@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/user")
+
 public class UserController {
 
     String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());

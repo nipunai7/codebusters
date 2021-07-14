@@ -13,16 +13,4 @@ public class CodebustersApplication{
 		SpringApplication.run(CodebustersApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/auth/login").allowedOrigins("*");
-				registry.addMapping("/auth/register").allowedOrigins("*");
-				registry.addMapping("/*").allowedOrigins("*");
-			}
-		};
-	}
-
 }
