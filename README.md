@@ -15,3 +15,11 @@ Technologies used:
 - Mailtrap
 - React
 - MongoDB
+
+- [x] Register User
+- [x] Add sensor to user
+- [x] View Sensor List
+- [x] View sensor data using a line chart
+- [x] Delete Sensors
+- [x] Get email notifications for abnormal values
+- [x] View sent email table
