@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Table from "./Common/table";
+import { Link } from "react-router-dom";
 
 class SensorTable extends Component {
   columns = [
@@ -31,11 +32,19 @@ class SensorTable extends Component {
       key: "delete",
       content: sensor => (
         <button
-          className="btn btn-s btn-danger"
+          className="btn btn-danger"
           onClick={() => this.props.onDelete(sensor)}
         >
           Delete
         </button>
+      )
+    },
+    {
+      key: "edit",
+      content: sensor => (
+        <Link className="btn btn-primary" to={`/edit-sensor/${sensor.id}`}>
+          Edit
+        </Link>
       )
     }
   ];

@@ -33,7 +33,9 @@ export default class Header extends Component {
               {user && (
                 <React.Fragment>
                   <li className="nav-item me-2">
-                    <Link className="btn btn-secondary">{user.sub}</Link>
+                    <Link className="btn btn-secondary" to="/me">
+                      {user.sub}
+                    </Link>
                   </li>
                   <li className="nav-item me-2">
                     <Link className="nav-link" to="/sensor-details">

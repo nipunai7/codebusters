@@ -1,13 +1,12 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./Common/form";
-import { addLightSensor, addTempSensor } from "../Services/sensorService";
+import { updateSensor, getSensor } from "../Services/sensorService";
 import { getCurrentUser } from "../Services/authService";
 
-class AddSensorForm extends Form {
+class EditSensorForm extends Form {
   state = {
     data: {
-      type: "",
       name: "",
       threshold1: "",
       threshold2: ""
@@ -16,28 +15,33 @@ class AddSensorForm extends Form {
   };
 
   schema = {
-    type: Joi.string().required(),
-
     name: Joi.string().label("Sensor Name").min(3).max(30).required(),
     threshold1: Joi.label("Lower Threshold").required(),
     threshold2: Joi.label("Higher Threshold").required()
   };
 
+  async componentDidMount() {
+    const sensorId = this.props.match.params.id;
+    const userId = getCurrentUser().jti;
+    const { data: sensor } = await getSensor(userId, sensorId);
+    const data = {
+      name: sensor.name,
+      threshold1: sensor.threshold1,
+      threshold2: sensor.threshold2
+    };
+    this.setState({ data });
+  }
+
   doSubmit = async () => {
     //call the server
-    const { data } = this.state;
+    const data = { ...this.state.data };
+    const sensorId = this.props.match.params.id;
     const userId = getCurrentUser().jti;
 
     try {
-      if (data.type === "Light") {
-        await addLightSensor(userId, data);
-      }
+      await updateSensor(userId, sensorId, data);
 
-      if (data.type === "Temp") {
-        await addTempSensor(userId, data);
-      }
-
-      window.location = "sensor-list";
+      window.location = "/sensor-list";
     } catch (ex) {
       alert(ex);
     }
@@ -45,7 +49,6 @@ class AddSensorForm extends Form {
 
   handleClear = () => {
     const data = {
-      type: "",
       name: "",
       threshold1: "",
       threshold2: ""
@@ -62,43 +65,9 @@ class AddSensorForm extends Form {
         style={{ height: "100vh" }}
         onSubmit={this.handleSubmit}
       >
-        <div className="w-50 p-5" style={{ border: "2px solid blue" }}>
+        <div className="w-50 p-5" style={{ border: "2px solid green" }}>
           <div className="row mb-3">
-            <h2 className="text-dark offset-3 ps-5">Add A Sensor</h2>
-          </div>
-
-          <div className="form-group row mb-3">
-            <label className="form-label col-sm-4 pt-2 text-end">
-              <span className="text-danger">*</span>Sensor Type:
-            </label>
-            <div className="d-flex col-sm-7 pt-2 mb-3">
-              <div className="form-check me-3">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="type"
-                  id="Light"
-                  value="Light"
-                  onChange={this.handleChange}
-                />
-                <label className="form-check-label" htmlFor="Light">
-                  Light
-                </label>
-              </div>
-              <div className="form-check me-3">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="type"
-                  id="Temp"
-                  value="Temp"
-                  onChange={this.handleChange}
-                />
-                <label className="form-check-label" htmlFor="Temp">
-                  Temperature
-                </label>
-              </div>
-            </div>
+            <h2 className="text-dark offset-3 ps-5">Edit Sensor</h2>
           </div>
 
           <div className="form-group row mb-3">
@@ -160,10 +129,10 @@ class AddSensorForm extends Form {
           <div className="form-group row mb-3">
             <button
               type="submit"
-              className="btn btn-primary btn-m  mt-5 offset-3 col-sm-2"
+              className="btn btn-success btn-m  mt-5 offset-3 col-sm-2"
               disabled={this.validate()}
             >
-              ADD
+              UPDATE
             </button>
             <button
               type="reset"
@@ -179,4 +148,4 @@ class AddSensorForm extends Form {
   }
 }
 
-export default AddSensorForm;
+export default EditSensorForm;

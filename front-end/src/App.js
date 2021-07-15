@@ -6,8 +6,9 @@ import SignUp from "./components/signup.component";
 import SensorDetails from "./components/sensorDetails";
 import YourSensorsList from "./components/yourSensorsList";
 import AddSensorForm from "./components/addSensor";
-import { getCurrentUser } from "./Services/authService";
+import EditSensorForm from "./components/editSensor";
 import LogOut from "./components/Common/logout";
+import { getCurrentUser } from "./Services/authService";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -27,11 +28,16 @@ class App extends Component {
           <Switch>
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
+            <Route path="/edit-sensor/:id" component={EditSensorForm} />
             <Route path="/sensor-details" component={SensorDetails} />
             <Route path="/sensor-list" component={YourSensorsList} />
             <Route path="/add-sensor" component={AddSensorForm} />
             <Route path="/logout" component={LogOut} />
-            <Redirect from="/" to="/sign-in" />
+            {this.state.user ? (
+              <Redirect from="/" to="/sensor-details" />
+            ) : (
+              <Redirect from="/" to="/sign-in" />
+            )}
           </Switch>
         </div>
       </React.Fragment>

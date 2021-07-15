@@ -30,3 +30,7 @@ export function addTempSensor(userId, sensor) {
 export function deleteSensor(userId, sensorId) {
   return http.delete(`${apiUrl}/${userId}/del/${sensorId}`);
 }
+
+export function updateSensor(userId, sensorId, sensor) {
+  return http.patch(`${apiUrl}/${userId}/update/all/${sensorId}`, sensor);
+}
