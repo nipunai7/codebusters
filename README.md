@@ -3,8 +3,8 @@
 
 ***Web based platform to capture and display values of various kind of sensors.***
 
-- Back-end: [wso2-devops-training.et.r.appspot.com]
-- Front-end: [codebusters-95d10.web.app]
+- Back-end: [wso2-devops-training.et.r.appspot.com](https://wso2-devops-training.et.r.appspot.com)
+- Front-end: [codebusters-95d10.web.app](https://codebusters-95d10.web.app)
 
 Technologies used:
 - Spring Boot with Spring security
