@@ -8,8 +8,11 @@ export default class Header extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light sticky-top">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/sign-in">
-            Code Busters
+          <Link className="navbar-brand ps-4" to="/">
+            <span className="fs-3 fw-bold" style={{ color: "grey" }}>
+              CODE
+            </span>
+            <span className="fw-light">Busters</span>
           </Link>
           <div
             className="collapse navbar-collapse d-flex justify-content-end"
