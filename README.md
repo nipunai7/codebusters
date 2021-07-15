@@ -16,6 +16,8 @@ Technologies used:
 - React
 - MongoDB
 
+
+**Features List**
 - [x] Register User
 - [x] Add sensor to user
 - [x] View Sensor List
