@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import http, { setJwt } from "./httpService";
 
-const apiUrl = "http://localhost:8080/auth";
+const apiUrl = "http://wso2-devops-training.et.r.appspot.com/auth";
 
 setJwt(getJwt());
 

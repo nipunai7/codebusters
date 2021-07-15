@@ -1,9 +1,12 @@
 import http from "./httpService";
 
-const apiUrl = "http://localhost:8080/api";
+const apiUrl = "http://wso2-devops-training.et.r.appspot.com/api";
 
 export function registerUser(user) {
-  return http.post(`http://localhost:8080/auth/register`, user);
+  return http.post(
+    `http://wso2-devops-training.et.r.appspot.com/auth/register`,
+    user
+  );
 }
 
 export function getUser(userId) {

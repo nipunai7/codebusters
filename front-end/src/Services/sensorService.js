@@ -1,6 +1,6 @@
 import http from "./httpService";
 
-const apiUrl = "http://localhost:8080/api";
+const apiUrl = "http://wso2-devops-training.et.r.appspot.com/api";
 
 export function getSensors(userId) {
   return http.get(`${apiUrl}/${userId}/listsensors`);
