@@ -6,14 +6,14 @@
 - Back-end: [wso2-devops-training.et.r.appspot.com](https://wso2-devops-training.et.r.appspot.com)
 - Front-end: [codebusters-95d10.web.app](https://codebusters-95d10.web.app)
 
-**Sample Logins
+**Sample Logins**
 - User 1
   - Email: sensorproject@sensor.com
   - Password: 12345
 
--User 2
- - Email: mnipunai7@gmail.com
- - Password: 12345
+- User 2
+  - Email: mnipunai7@gmail.com
+  - Password: 12345
 
 Technologies used:
 - Spring Boot with Spring security
