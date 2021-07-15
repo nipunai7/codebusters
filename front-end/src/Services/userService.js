@@ -1,10 +1,10 @@
 import http from "./httpService";
 
-const apiUrl = "http://wso2-devops-training.et.r.appspot.com/api";
+const apiUrl = "https://wso2-devops-training.et.r.appspot.com/api";
 
 export function registerUser(user) {
   return http.post(
-    `http://wso2-devops-training.et.r.appspot.com/auth/register`,
+    `https://wso2-devops-training.et.r.appspot.com/auth/register`,
     user
   );
 }
