@@ -3,11 +3,8 @@
 
 ***Web based platform to capture and display values of various kind of sensors.***
 
-Team Members:
-- [Akila Rangalla](https://github.com/AkilaRangalla223)
-- [Chamith Shehan](https://github.com/shehanweerarathne)
-- [Malinga Herath](https://github.com/MalingaHerath)
-- [Nipuna Munasinghe](https://github.com/nipunai7)
+- Back-end: [wso2-devops-training.et.r.appspot.com]
+- Front-end: [codebusters-95d10.web.app]
 
 Technologies used:
 - Spring Boot with Spring security
@@ -15,6 +12,8 @@ Technologies used:
 - Mailtrap
 - React
 - MongoDB
+- Firebase Host
+- Google Cloud Platform
 
 
 **Features List**
@@ -25,3 +24,9 @@ Technologies used:
 - [x] Delete Sensors
 - [x] Get email notifications for abnormal values
 - [x] View sent email table
+
+Team Members:
+- [Akila Rangalla](https://github.com/AkilaRangalla223)
+- [Chamith Shehan](https://github.com/shehanweerarathne)
+- [Malinga Herath](https://github.com/MalingaHerath)
+- [Nipuna Munasinghe](https://github.com/nipunai7)
