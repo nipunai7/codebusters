@@ -1,7 +1,7 @@
 # codebusters
-**Intergrative App Development**
+**Integrative App Development**
 
-***Web based platform to capture and display values of various kind of sensors.***
+***Web-based platform to capture and display values of various kind of sensors.***
 
 - Back-end: [wso2-devops-training.et.r.appspot.com](https://wso2-devops-training.et.r.appspot.com)
 - Front-end: [codebusters-95d10.web.app](https://codebusters-95d10.web.app)
@@ -18,7 +18,7 @@ Technologies used:
 
 **Features List**
 - [x] Register User
-- [x] Add sensor to user
+- [x] Add a sensor to the user
 - [x] View Sensor List
 - [x] View sensor data using a line chart
 - [x] Delete Sensors
