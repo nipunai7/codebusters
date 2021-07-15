@@ -15,6 +15,10 @@
   - Email: mnipunai7@gmail.com
   - Password: 12345
 
+- MailTrap Email Logins [mailtrap.io](https://mailtrap.io)
+  - Email: johnjohn85593@gmail.com
+  - Password: 85593johnjohn
+
 Technologies used:
 - Spring Boot with Spring security
 - Maven
